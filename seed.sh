@@ -6,3 +6,4 @@ python manage.py makemigrations terraceapi
 python manage.py migrate terraceapi
 python manage.py loaddata users
 python manage.py loaddata tokens
+python manage.py loaddata locations
