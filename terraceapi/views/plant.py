@@ -89,10 +89,6 @@ class Plant(ViewSet):
     
     def destroy(self, request, pk=None):
         """Handle DELETE requests for a post
-            Created By: Jake Butler
-            Date: 2/24/21
-            Subject: Defines server response for deleting posts
-        
 
         Returns:
             Response -- 200, 404, or 500 status code
@@ -120,3 +116,14 @@ class Plant(ViewSet):
         serializer = PlantSerializer(
             plants, many=True, context={'request': request})
         return Response(serializer.data)
+
+class PlantSerializer(serializers.ModelSerializer):
+    """JSON serializer for plants
+
+    Arguments:
+        serializer type
+    """
+    class Meta:
+        model = Plant
+        fields = ('id', 'user',  'title', 'nick_name', 'location', 'about', 'watering_frequency', "date_watered", 'is_current_user')
+        depth = 2
