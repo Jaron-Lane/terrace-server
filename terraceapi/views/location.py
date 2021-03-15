@@ -105,3 +105,14 @@ class Location(ViewSet):
         serializer = LocationSerializer(
             locations, many=True, context={'request': request})
         return Response(serializer.data)
+
+class LocationSerializer(serializers.ModelSerializer):
+    """JSON serializer for locations
+
+    Arguments:
+        serializer type
+    """
+    class Meta:
+        model = Location
+        fields = ('id', 'user', 'name', 'lighting',)
+        depth = 1
