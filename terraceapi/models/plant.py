@@ -10,4 +10,4 @@ class Plant(models.Model):
     about = models.CharField(max_length=500)
     # photo = models.ImageField(_(""), upload_to=None, height_field=None, width_field=None, max_length=None)
     watering_frequency = models.IntegerField()
-    date_watered = models.DateField(_(""), auto_now=False, auto_now_add=False)
+    date_watered = models.DateField(auto_now=False, auto_now_add=False)
