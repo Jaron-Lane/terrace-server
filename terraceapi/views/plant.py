@@ -13,7 +13,7 @@ from terraceapi.models import Plant, Location
 from django.contrib.auth.models import User
 import datetime
 
-class Plant(ViewSet):
+class Plants(ViewSet):
     """Terrace Plants"""
 
     def create(self, request):

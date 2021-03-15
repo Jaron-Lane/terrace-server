@@ -9,11 +9,11 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from terraceapi.models import Plant, Location
+from terraceapi.models import Location
 from django.contrib.auth.models import User
 import datetime
 
-class Location(ViewSet):
+class Locations(ViewSet):
     """Terrace Locations"""
 
     def create(self, request):
@@ -114,5 +114,5 @@ class LocationSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Location
-        fields = ('id', 'user', 'name', 'lighting',)
+        fields = ('id', 'user', 'name', 'lighting')
         depth = 1
