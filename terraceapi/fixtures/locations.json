@@ -10,7 +10,7 @@
     },
     {
       "model": "terraceapi.location",
-      "pk": 1,
+      "pk": 2,
       "fields": {
         "user": 1,
         "name": "Bathroom",
@@ -19,7 +19,7 @@
     },
     {
       "model": "terraceapi.location",
-      "pk": 1,
+      "pk": 3,
       "fields": {
         "user": 1,
         "name": "Kitchen",

@@ -7,3 +7,4 @@ python manage.py migrate terraceapi
 python manage.py loaddata users
 python manage.py loaddata tokens
 python manage.py loaddata locations
+python manage.py loaddata plants

@@ -9,12 +9,12 @@
             "location": 1,
             "about": "The plant has a multitude of common names including golden pothos, Ceylon creeper, hunter's robe, ivy arum, house plant, money plant, silver vine, Solomon Islands ivy, marble queen, and taro vine. It is also called devil's vine or devil's ivy because it is almost impossible to kill and it stays green even when kept in the dark.",
             "watering_frequency": 5,
-            "date_watered": "2021-02-29T13:24:27.172Z"
+            "date_watered": "2021-03-15"
         }
     },
     {
         "model": "terraceapi.plant",
-        "pk": 1,
+        "pk": 2,
         "fields": {
             "user": 1,
             "title": "Chlorophytum comosum",
@@ -22,12 +22,12 @@
             "location": 1,
             "about": "Chlorophytum comosum, often called spider plant but also known as airplane plant, St. Bernard's lily, spider ivy, ribbon plant, and hen and chickens is a species of perennial flowering plant. It is native to tropical and southern Africa, but has become naturalized in other parts of the world, including western Australia",
             "watering_frequency": 5,
-            "date_watered": "2021-02-29T13:24:27.172Z"
+            "date_watered": "2021-02-28"
         }
     },
     {
         "model": "terraceapi.plant",
-        "pk": 1,
+        "pk": 3,
         "fields": {
             "user": 1,
             "title": "Chlorophytum comosum",
@@ -35,12 +35,12 @@
             "location": 1,
             "about": "Chlorophytum comosum, often called spider plant but also known as airplane plant, St. Bernard's lily, spider ivy, ribbon plant, and hen and chickens is a species of perennial flowering plant. It is native to tropical and southern Africa, but has become naturalized in other parts of the world, including western Australia",
             "watering_frequency": 5,
-            "date_watered": "2021-02-29T13:24:27.172Z"
+            "date_watered": "2021-02-28"
         }
     },
     {
         "model": "terraceapi.plant",
-        "pk": 1,
+        "pk": 4,
         "fields": {
             "user": 1,
             "title": "Chlorophytum comosum",
@@ -48,12 +48,12 @@
             "location": 1,
             "about": "Chlorophytum comosum, often called spider plant but also known as airplane plant, St. Bernard's lily, spider ivy, ribbon plant, and hen and chickens is a species of perennial flowering plant. It is native to tropical and southern Africa, but has become naturalized in other parts of the world, including western Australia",
             "watering_frequency": 5,
-            "date_watered": "2021-02-29T13:24:27.172Z"
+            "date_watered": "2021-02-28"
         }
     },
     {
         "model": "terraceapi.plant",
-        "pk": 1,
+        "pk": 5,
         "fields": {
             "user": 1,
             "title": "Spathiphyllum",
@@ -61,7 +61,7 @@
             "location": 1,
             "about": "Spathiphyllum is a genus of about 47 species of monocotyledonous flowering plants in the family Araceae, native to tropical regions of the Americas and southeastern Asia. Certain species of Spathiphyllum are commonly known as spath or peace lilies.",
             "watering_frequency": 3,
-            "date_watered": "2021-02-29T13:24:27.172Z"
+            "date_watered": "2021-02-28"
         }
     }
 ]
