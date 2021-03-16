@@ -22,7 +22,7 @@ class Locations(ViewSet):
         Returns:
             Response -- JSON serialized location instance
         """
-        user = User.objects.get(user=request.auth.user)
+        user = request.auth.user
         
         location = Location()
         location.user = user
@@ -43,7 +43,7 @@ class Locations(ViewSet):
         Returns:
             Response -- JSON serialized location instance
         """
-        user = User.objects.get(user=request.auth.user)
+        user = request.auth.user
 
         try:
             location = Location.objects.get(pk=pk)
@@ -62,7 +62,7 @@ class Locations(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        user = User.objects.get(user=request.auth.user)
+        user = request.auth.user
 
         location = Location()
         location.user = user

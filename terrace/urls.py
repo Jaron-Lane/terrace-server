@@ -14,13 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
 from terraceapi.views import Plants, Locations
+from terraceapi.views import register_user, login_user
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'plants', Plants, 'plant')
-router.register(r'location', Locations, 'location')
+router.register(r'locations', Locations, 'location')
 
 urlpatterns = [
     path('', include(router.urls)),
