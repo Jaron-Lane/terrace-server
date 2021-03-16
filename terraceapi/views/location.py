@@ -9,11 +9,11 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from terraceapi.models import Plant, Location
+from terraceapi.models import Location
 from django.contrib.auth.models import User
 import datetime
 
-class Location(ViewSet):
+class Locations(ViewSet):
     """Terrace Locations"""
 
     def create(self, request):
@@ -22,7 +22,7 @@ class Location(ViewSet):
         Returns:
             Response -- JSON serialized location instance
         """
-        user = User.objects.get(user=request.auth.user)
+        user = request.auth.user
         
         location = Location()
         location.user = user
@@ -43,7 +43,7 @@ class Location(ViewSet):
         Returns:
             Response -- JSON serialized location instance
         """
-        user = User.objects.get(user=request.auth.user)
+        user = request.auth.user
 
         try:
             location = Location.objects.get(pk=pk)
@@ -62,9 +62,9 @@ class Location(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        user = User.objects.get(user=request.auth.user)
+        user = request.auth.user
 
-        location = Location()
+        location = Location.objects.get(pk=pk)
         location.user = user
         location.name = request.data["name"]
         location.lighting = request.data["lighting"]
@@ -114,5 +114,5 @@ class LocationSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Location
-        fields = ('id', 'user', 'name', 'lighting',)
+        fields = ('id', 'user', 'name', 'lighting')
         depth = 1

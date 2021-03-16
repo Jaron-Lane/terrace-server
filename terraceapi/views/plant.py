@@ -13,7 +13,7 @@ from terraceapi.models import Plant, Location
 from django.contrib.auth.models import User
 import datetime
 
-class Plant(ViewSet):
+class Plants(ViewSet):
     """Terrace Plants"""
 
     def create(self, request):
@@ -22,7 +22,7 @@ class Plant(ViewSet):
         Returns:
             Response -- JSON serialized event instance
         """
-        user = User.objects.get(user=request.auth.user)
+        user = request.auth.user
         location = Location.objects.get(pk=request.data["location_id"])
         
 
@@ -33,7 +33,7 @@ class Plant(ViewSet):
         plant.location = location
         plant.about = request.data["about"]
         plant.watering_frequency = request.data["watering_frequency"]
-        plant.date_watered = datetime.datetime.now()
+        plant.date_watered = datetime.date.today()
 
 
         try:
@@ -49,7 +49,7 @@ class Plant(ViewSet):
         Returns:
             Response -- JSON serialized game instance
         """
-        user = User.objects.get(user=request.auth.user)
+        user = request.auth.user
 
 
         try:
@@ -69,18 +69,18 @@ class Plant(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        user = User.objects.get(user=request.auth.user)
+        user = request.auth.user
         location = Location.objects.get(pk=request.data["location_id"])
         
 
-        plant = Plant()
+        plant = Plant.objects.get(pk=pk)
         plant.user = user
         plant.title = request.data["title"]
         plant.nick_name = request.data["nick_name"]
         plant.location = location
         plant.about = request.data["about"]
         plant.watering_frequency = request.data["watering_frequency"]
-        plant.date_watered = datetime.datetime.now()
+        plant.date_watered = datetime.date.today()
         
         plant.save()
 
@@ -126,4 +126,4 @@ class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plant
         fields = ('id', 'user',  'title', 'nick_name', 'location', 'about', 'watering_frequency', "date_watered", 'is_current_user')
-        depth = 2
+        depth = 0
