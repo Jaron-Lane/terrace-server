@@ -64,7 +64,7 @@ class Locations(ViewSet):
         """
         user = request.auth.user
 
-        location = Location()
+        location = Location.objects.get(pk=pk)
         location.user = user
         location.name = request.data["name"]
         location.lighting = request.data["lighting"]

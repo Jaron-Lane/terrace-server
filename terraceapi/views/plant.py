@@ -73,7 +73,7 @@ class Plants(ViewSet):
         location = Location.objects.get(pk=request.data["location_id"])
         
 
-        plant = Plant()
+        plant = Plant.objects.get(pk=pk)
         plant.user = user
         plant.title = request.data["title"]
         plant.nick_name = request.data["nick_name"]
