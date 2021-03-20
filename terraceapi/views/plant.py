@@ -16,6 +16,10 @@ import datetime
 class Plants(ViewSet):
     """Terrace Plants"""
 
+    def addonDays(date, int):
+        ret = time.strftime("%Y-%m-%d",time.localtime(time.mktime(time.strptime(date,"%Y-%m-%d"))+int*3600*24+3600))      
+        return ret
+
     def create(self, request):
         """Handle POST operations for plants
 
@@ -113,6 +117,17 @@ class Plants(ViewSet):
         """
         plants = Plant.objects.all()
 
+        past_due_plants = []
+
+        past_due = self.request.query_params.get('past_due', None)
+        if past_due is not None:
+            for plant in plants:
+                due_date = addonDays(plant.date_watered, plant.watering_frequency)
+                if {
+                    due_date = datetime.date.today()
+                    past_due_plants.append(due_date)
+                }
+
         serializer = PlantSerializer(
             plants, many=True, context={'request': request})
         return Response(serializer.data)
@@ -126,4 +141,4 @@ class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plant
         fields = ('id', 'user',  'title', 'nick_name', 'location', 'about', 'watering_frequency', "date_watered", 'is_current_user')
-        depth = 0
+        depth = 1
