@@ -12,13 +12,13 @@ from rest_framework import serializers
 from terraceapi.models import Plant, Location
 from django.contrib.auth.models import User
 import datetime
+import time
 
 class Plants(ViewSet):
     """Terrace Plants"""
-
-    def addonDays(date, int):
-        ret = time.strftime("%Y-%m-%d",time.localtime(time.mktime(time.strptime(date,"%Y-%m-%d"))+int*3600*24+3600))      
-        return ret
+    def addonDays(self, date, int):
+                ret = time.strftime("%Y-%m-%d",time.localtime(time.mktime(time.strptime(str(date),"%Y-%m-%d"))+int*3600*24+3600))      
+                return ret
 
     def create(self, request):
         """Handle POST operations for plants
@@ -121,15 +121,20 @@ class Plants(ViewSet):
 
         past_due = self.request.query_params.get('past_due', None)
         if past_due is not None:
-            for plant in plants:
-                due_date = addonDays(plant.date_watered, plant.watering_frequency)
-                if {
-                    due_date = datetime.date.today()
-                    past_due_plants.append(due_date)
-                }
 
-        serializer = PlantSerializer(
-            plants, many=True, context={'request': request})
+            for plant in plants:
+                due_date = self.addonDays(plant.date_watered, plant.watering_frequency)
+                if due_date == datetime.date.today():
+                    past_due_plants.append(plant)
+            serializer = PlantSerializer(
+                past_due_plants, many=True, context={'request': request}) 
+        else:
+            serializer = PlantSerializer(
+                plants, many=True, context={'request': request})
+                
+
+                # IDK exactly what to do next. I think adding lines 133-134 and changing 'plants' to 'past_due-plants' for the
+                # if statement, and keeping lines 133-134 for the else statement?
         return Response(serializer.data)
 
 class PlantSerializer(serializers.ModelSerializer):
