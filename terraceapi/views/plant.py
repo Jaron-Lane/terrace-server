@@ -124,7 +124,9 @@ class Plants(ViewSet):
 
             for plant in plants:
                 due_date = self.addonDays(plant.date_watered, plant.watering_frequency)
-                if due_date == datetime.date.today() or due_date < datetime.date.today():
+                date_object = datetime.datetime.strptime(due_date, '%Y-%m-%d').date()
+                
+                if due_date == datetime.date.today() or date_object < datetime.date.today():
                     past_due_plants.append(plant)
             serializer = PlantSerializer(
                 past_due_plants, many=True, context={'request': request}) 
