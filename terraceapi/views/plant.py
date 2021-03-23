@@ -117,26 +117,23 @@ class Plants(ViewSet):
         """
         plants = Plant.objects.all()
 
-        past_due_plants = []
+        plants_due = []
 
-        past_due = self.request.query_params.get('past_due', None)
-        if past_due is not None:
+        todays_plants = self.request.query_params.get('todays_plants', None)
+        if todays_plants is not None:
 
             for plant in plants:
                 due_date = self.addonDays(plant.date_watered, plant.watering_frequency)
                 date_object = datetime.datetime.strptime(due_date, '%Y-%m-%d').date()
-                
+
                 if due_date == datetime.date.today() or date_object < datetime.date.today():
-                    past_due_plants.append(plant)
+                    plants_due.append(plant)
             serializer = PlantSerializer(
-                past_due_plants, many=True, context={'request': request}) 
+                plants_due, many=True, context={'request': request}) 
         else:
             serializer = PlantSerializer(
                 plants, many=True, context={'request': request})
                 
-
-                # IDK exactly what to do next. I think adding lines 133-134 and changing 'plants' to 'past_due-plants' for the
-                # if statement, and keeping lines 133-134 for the else statement?
         return Response(serializer.data)
 
 class PlantSerializer(serializers.ModelSerializer):
