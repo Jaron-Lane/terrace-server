@@ -98,7 +98,7 @@ class Locations(ViewSet):
         Returns:
             Response -- JSON serialized list of posts
         """
-        locations = Location.objects.all()
+        locations = Location.objects.filter(user = request.auth.user)
 
         # .order_by('-publication_date') => THIS IS A COOL TRICK TO REMEMBER FOR THE FUTURE
 

@@ -1,6 +1,8 @@
 # AUTHOR: JARON LANE
 
 """View module for handling requests about posts"""
+import datetime
+import time
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
@@ -10,11 +12,12 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from terraceapi.models import Plant, Location
-from django.contrib.auth.models import User
-import datetime
 
 class Plants(ViewSet):
     """Terrace Plants"""
+    def addonDays(self, date, int):
+                ret = time.strftime("%Y-%m-%d",time.localtime(time.mktime(time.strptime(str(date),"%Y-%m-%d"))+int*3600*24+3600))      
+                return ret
 
     def create(self, request):
         """Handle POST operations for plants
@@ -105,16 +108,40 @@ class Plants(ViewSet):
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+    @action(methods=["get"], detail=True)
+    def water(self, request, pk=None):
+        plant = Plant.objects.get(pk=pk)
+        plant.date_watered = datetime.date.today()
+        plant.save()
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+
     def list(self, request):
         """Handle GET requests to post resource
 
         Returns:
             Response -- JSON serialized list of posts
         """
-        plants = Plant.objects.all()
+        plants = Plant.objects.filter(user=request.auth.user)
 
-        serializer = PlantSerializer(
-            plants, many=True, context={'request': request})
+        plants_due = []
+
+        todays_plants = self.request.query_params.get('todays_plants', None)
+        if todays_plants is not None:
+
+            for plant in plants:
+                due_date = self.addonDays(plant.date_watered, plant.watering_frequency)
+                date_object = datetime.datetime.strptime(due_date, '%Y-%m-%d').date()
+
+                if date_object == datetime.date.today() or date_object < datetime.date.today():
+                    plants_due.append(plant)
+            serializer = PlantSerializer(
+                plants_due, many=True, context={'request': request}) 
+        else:
+            serializer = PlantSerializer(
+                plants, many=True, context={'request': request})
+                
         return Response(serializer.data)
 
 class PlantSerializer(serializers.ModelSerializer):
@@ -126,4 +153,4 @@ class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plant
         fields = ('id', 'user',  'title', 'nick_name', 'location', 'about', 'watering_frequency', "date_watered", 'is_current_user')
-        depth = 0
+        depth = 1
