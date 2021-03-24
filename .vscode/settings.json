@@ -6,5 +6,6 @@
             "name": "Terrace DB",
             "database": "db.sqlite3"
         }
-    ]
+    ],
+    "python.pythonPath": "/Users/jaronlane/.local/share/virtualenvs/terrace-server-8v8FQd3U/bin/python"
 }

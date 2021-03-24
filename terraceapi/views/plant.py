@@ -1,6 +1,8 @@
 # AUTHOR: JARON LANE
 
 """View module for handling requests about posts"""
+import datetime
+import time
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
@@ -10,9 +12,6 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from terraceapi.models import Plant, Location
-from django.contrib.auth.models import User
-import datetime
-import time
 
 class Plants(ViewSet):
     """Terrace Plants"""
@@ -109,6 +108,15 @@ class Plants(ViewSet):
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+    @action(methods=["get"], detail=True)
+    def water(self, request, pk=None):
+        plant = Plant.objects.get(pk=pk)
+        plant.date_watered = datetime.date.today()
+        plant.save()
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+
     def list(self, request):
         """Handle GET requests to post resource
 
@@ -126,7 +134,7 @@ class Plants(ViewSet):
                 due_date = self.addonDays(plant.date_watered, plant.watering_frequency)
                 date_object = datetime.datetime.strptime(due_date, '%Y-%m-%d').date()
 
-                if due_date == datetime.date.today() or date_object < datetime.date.today():
+                if date_object == datetime.date.today() or date_object < datetime.date.today():
                     plants_due.append(plant)
             serializer = PlantSerializer(
                 plants_due, many=True, context={'request': request}) 
