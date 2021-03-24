@@ -123,7 +123,7 @@ class Plants(ViewSet):
         Returns:
             Response -- JSON serialized list of posts
         """
-        plants = Plant.objects.all()
+        plants = Plant.objects.filter(user=request.auth.user)
 
         plants_due = []
 
