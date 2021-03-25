@@ -26,17 +26,18 @@ class Plants(ViewSet):
             Response -- JSON serialized event instance
         """
         user = request.auth.user
-        location = Location.objects.get(pk=request.data["location_id"])
+        location = Location.objects.get(pk=request.POST.get("location_id"))
         
 
         plant = Plant()
         plant.user = user
-        plant.title = request.data["title"]
-        plant.nick_name = request.data["nick_name"]
+        plant.title = request.POST.get("title")
+        plant.nick_name = request.POST.get("nick_name")
         plant.location = location
-        plant.about = request.data["about"]
-        plant.watering_frequency = request.data["watering_frequency"]
+        plant.about = request.POST.get("about")
+        plant.watering_frequency = request.POST.get("watering_frequency")
         plant.date_watered = datetime.date.today()
+        plant.photo = request.FILES.get("photo")
 
 
         try:
@@ -84,6 +85,7 @@ class Plants(ViewSet):
         plant.about = request.data["about"]
         plant.watering_frequency = request.data["watering_frequency"]
         plant.date_watered = datetime.date.today()
+        plant.photo = request.FILES.get["photo"]
         
         plant.save()
 
@@ -152,5 +154,5 @@ class PlantSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Plant
-        fields = ('id', 'user',  'title', 'nick_name', 'location', 'about', 'watering_frequency', "date_watered", 'is_current_user')
+        fields = ('id', 'user',  'title', 'nick_name', 'location', 'about', 'watering_frequency', "date_watered", 'is_current_user', 'photo')
         depth = 1

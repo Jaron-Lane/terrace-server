@@ -8,7 +8,7 @@ class Plant(models.Model):
     nick_name = models.CharField(max_length=50)
     location = models.ForeignKey("Location", on_delete=models.CASCADE)
     about = models.CharField(max_length=500)
-    # photo = models.ImageField(_(""), upload_to=None, height_field=None, width_field=None, max_length=None)
+    photo = models.ImageField(upload_to="images", blank=True, null=True)
     watering_frequency = models.IntegerField()
     date_watered = models.DateField(auto_now_add=True)
 

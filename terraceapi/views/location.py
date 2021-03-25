@@ -68,6 +68,7 @@ class Locations(ViewSet):
         location.user = user
         location.name = request.data["name"]
         location.lighting = request.data["lighting"]
+        location.photo = request.FILES.get("photo")
         
         location.save()
 
