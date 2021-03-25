@@ -5,8 +5,8 @@
       "fields": {
         "user": 1,
         "name": "Living Room",
-        "lighting": "High Light",
-        "photo": "/Spider-plant.jpg"
+        "lighting": "High Light"
+        // "photo": "/Spider-plant.jpg"
       }
     },
     {

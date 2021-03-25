@@ -85,7 +85,7 @@ class Plants(ViewSet):
         plant.about = request.data["about"]
         plant.watering_frequency = request.data["watering_frequency"]
         plant.date_watered = datetime.date.today()
-        plant.photo = request.FILES.get["photo"]
+        # plant.photo = request.FILES.get["photo"]
         
         plant.save()
 
