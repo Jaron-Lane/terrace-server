@@ -26,9 +26,9 @@ class Locations(ViewSet):
         
         location = Location()
         location.user = user
-        location.name = request.data["name"]
-        location.lighting = request.data["lighting"]
-
+        location.name = request.POST.get("name")
+        location.lighting = request.POST.get("lighting")
+        location.photo = request.FILES.get("photo")
 
         try:
             location.save()
@@ -114,5 +114,5 @@ class LocationSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Location
-        fields = ('id', 'user', 'name', 'lighting')
+        fields = ('id', 'user', 'name', 'lighting', 'photo')
         depth = 1

@@ -19,6 +19,8 @@ from django.urls import path
 from rest_framework import routers
 from terraceapi.views import Plants, Locations
 from terraceapi.views import register_user, login_user
+from django.conf.urls.static import static
+from django.conf import settings
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'plants', Plants, 'plant')
@@ -31,6 +33,4 @@ urlpatterns = [
     path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
 ]
 
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-# ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

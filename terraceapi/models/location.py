@@ -5,7 +5,7 @@ class Location(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    # photo = models.ImageField(_(""), upload_to=None, height_field=None, width_field=None, max_length=None)
+    photo = models.ImageField(upload_to="images", blank=True, null=True)
     lighting = models.CharField(max_length=20)
 
     @property
