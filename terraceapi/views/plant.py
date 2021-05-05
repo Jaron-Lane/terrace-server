@@ -1,6 +1,3 @@
-# AUTHOR: JARON LANE
-
-"""View module for handling requests about posts"""
 import datetime
 import time
 from django.contrib.auth.models import User
@@ -15,9 +12,9 @@ from terraceapi.models import Plant, Location
 
 class Plants(ViewSet):
     """Terrace Plants"""
-    def addonDays(self, date, int):
-                ret = time.strftime("%Y-%m-%d",time.localtime(time.mktime(time.strptime(str(date),"%Y-%m-%d"))+int*3600*24+3600))      
-                return ret
+    def add_on_days(self, date, num):
+        ret = time.strftime("%Y-%m-%d",time.localtime(time.mktime(time.strptime(str(date),"%Y-%m-%d"))+num*3600*24+3600))      
+        return ret
 
     def create(self, request):
         """Handle POST operations for plants
@@ -131,7 +128,7 @@ class Plants(ViewSet):
         if todays_plants is not None:
 
             for plant in plants:
-                due_date = self.addonDays(plant.date_watered, plant.watering_frequency)
+                due_date = self.add_on_days(plant.date_watered, plant.watering_frequency)
                 date_object = datetime.datetime.strptime(due_date, '%Y-%m-%d').date()
 
                 if date_object == datetime.date.today() or date_object < datetime.date.today():
